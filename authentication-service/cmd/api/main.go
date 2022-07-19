@@ -3,6 +3,7 @@ package main
 import (
 	"calvarado2004/microservices-go/authentication/data"
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -11,7 +12,6 @@ import (
 	_ "github.com/jackc/pgconn"
 	_ "github.com/jackc/pgx/v4"
 	_ "github.com/jackc/pgx/v4/stdlib"
-
 )
 
 const webPort = "80"
@@ -19,13 +19,12 @@ const webPort = "80"
 var counts int64
 
 type Config struct {
-	DB *sql.DB
+	DB     *sql.DB
 	Models data.Models
 }
 
-
-func main {
-	log.Printn("Starting authentication service on port", webPort)
+func main() {
+	log.Println("Starting authentication service on port", webPort)
 
 	conn := connectToDB()
 	if conn == nil {
@@ -33,13 +32,13 @@ func main {
 	}
 
 	app := Config{
-		DB: conn,
+		DB:     conn,
 		Models: data.New(conn),
 	}
 
 	srv := &http.Server{
 
-		Addr: fmt.Sprintf(":%s", webPort),
+		Addr:    fmt.Sprintf(":%s", webPort),
 		Handler: app.routes(),
 	}
 
@@ -49,7 +48,6 @@ func main {
 	}
 
 }
-
 
 func openDB(dsn string) (*sql.DB, error) {
 	db, err := sql.Open("pgx", dsn)

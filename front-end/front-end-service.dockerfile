@@ -16,6 +16,8 @@ FROM alpine:latest
 
 RUN mkdir /app
 
+WORKDIR /app
+
 COPY ./cmd/web/templates /app/cmd/web/templates
 
 COPY --from=builder /app/frontEndApp /app

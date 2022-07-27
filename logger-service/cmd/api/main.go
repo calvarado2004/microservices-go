@@ -32,7 +32,7 @@ func main() {
 
 	//create a mongo context in order to be able to disconnect
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
 	//close connection on exit

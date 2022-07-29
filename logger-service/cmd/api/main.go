@@ -1,8 +1,11 @@
 package main
 
 import (
+	"calvarado2004/microservices-go/log-service/data"
 	"context"
+	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"time"
 
@@ -20,6 +23,7 @@ const (
 var client *mongo.Client
 
 type Config struct {
+	Models data.Models
 }
 
 func main() {
@@ -29,6 +33,8 @@ func main() {
 	if err != nil {
 		log.Panic(err)
 	}
+
+	client = mongoClient
 
 	//create a mongo context in order to be able to disconnect
 
@@ -43,6 +49,17 @@ func main() {
 		}
 	}()
 
+	app := Config{
+		Models: data.New(client),
+	}
+
+}
+
+func (app *Config) server() {
+	srv := &http.Server{
+		Addr:    fmt.Sprintf(":%s", webPort),
+		Handler: app.router(),
+	}
 }
 
 func connectToMongo() (*mongo.Client, error) {

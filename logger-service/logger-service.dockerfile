@@ -3,14 +3,17 @@ FROM docker.io/golang:1.18.4-alpine as builder
 RUN mkdir /app
 
 COPY ./cmd /app/cmd
+COPY ./data /app/data
 
 WORKDIR /app
 
-RUN go mod init calvarado2004/microservices-go/broker-service && go get github.com/go-chi/chi/v5 && go get github.com/go-chi/cors
+RUN go mod init calvarado2004/microservices-go/log-service 
 
-RUN CGO_ENABLED=0 go build -o brokerApp ./cmd/api
+RUN go get github.com/go-chi/chi/v5 && go get github.com/go-chi/cors && go get go.mongodb.org/mongo-driver/mongo && go get go.mongodb.org/mongo-driver/mongo/options
 
-RUN chmod +x /app/brokerApp
+RUN CGO_ENABLED=0 go build -o loggerServiceApp ./cmd/api
+
+RUN chmod +x /app/loggerServiceApp
 
 FROM alpine:latest 
 

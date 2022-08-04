@@ -7,3 +7,12 @@ This is the repository for microservices course in Go
 
 
 ![Reservation](./images/microservices.png)
+
+
+# MongoDB connection
+
+MongoDB connection string
+
+```
+mongodb://mongo:mongo@localhost:27017/logs?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false
+```

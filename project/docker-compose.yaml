@@ -35,6 +35,9 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+    environment:
+      MONGO_USER: mongo
+      MONGO_PASSWORD: mongo
 
   authentication-service:
     build:

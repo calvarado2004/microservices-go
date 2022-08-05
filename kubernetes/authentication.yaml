@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: authentication-service
+  labels:
+    app: authentication
+spec:
+  ports:
+  - port: 8082
+    targetPort: 8082
+  selector:
+    app: authentication
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authentication-deployment
+  labels:
+    app: authentication
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authentication
+  template:
+    metadata:
+      labels:
+        app: authentication
+    spec:
+      containers:
+      - name: authentication
+        image: calvarado2004/microservices-go-authentication:latest
+        env:
+        - name: DSN
+          value: "host=postgres port=5432 user=postgres password=password dbname=users sslmode=disable timezone=UTC connect_timeout=5"
+        ports:
+        - containerPort: 8082

@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+  labels:
+    app: mongo
+spec:
+  ports:
+  - port: 27017
+    name: mongo
+  clusterIP: None
+  selector:
+    app: mongo
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo
+spec:
+  selector:
+    matchLabels:
+      app: mongo
+  serviceName: "mongo"
+  replicas: 1
+  minReadySeconds: 15
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      terminationGracePeriodSeconds: 20
+      containers:
+      - name: mongo
+        image: mongo:4.2.16-bionic
+        env:
+        - name: MONGO_USER
+          value: "mongo"
+        - name: MONGO_PASSWORD
+          value: "mongo"
+        - name: MONGO_INITDB_DATABASE
+          value: "logs"
+        ports:
+        - containerPort: 27017
+          name: mongo
+        volumeMounts:
+        - name: mongodata
+          mountPath: /data/db
+  volumeClaimTemplates:
+  - metadata:
+      name: mongodata
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "portworx-db-sc"
+      resources:
+        requests:
+          storage: 5Gi

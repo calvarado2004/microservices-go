@@ -30,15 +30,15 @@ spec:
     spec:
       terminationGracePeriodSeconds: 20
       containers:
-      - name: mongo
+      - name: mongodb
         image: mongo:4.2.16-bionic
         env:
-        - name: MONGO_USER
+        - name: MONGO_INITDB_ROOT_USERNAME
           value: "mongo"
-        - name: MONGO_PASSWORD
+        - name: MONGO_INITDB_ROOT_PASSWORD
           value: "mongo"
         - name: MONGO_INITDB_DATABASE
-          value: "logs"
+          value: logs
         resources:
           requests:
             cpu: 10m

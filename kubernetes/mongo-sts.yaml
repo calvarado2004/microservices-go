@@ -39,6 +39,13 @@ spec:
           value: "mongo"
         - name: MONGO_INITDB_DATABASE
           value: "logs"
+        resources:
+          requests:
+            cpu: 10m
+            memory: 70Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
         ports:
         - containerPort: 27017
           name: mongo

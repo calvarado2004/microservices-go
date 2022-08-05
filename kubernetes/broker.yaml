@@ -30,5 +30,34 @@ spec:
       containers:
       - name: broker
         image: calvarado2004/microservices-go-broker:latest
+        resources:
+          requests:
+            cpu: 10m
+            memory: 10Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        livenessProbe:
+          exec:
+            command:
+              - sh
+              - -ec
+              - 'wget --no-verbose --tries=1 --spider http://127.0.0.1:8081/ping || exit 1'
+          initialDelaySeconds: 7
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 6
+        readinessProbe:
+          exec:
+            command:
+              - sh
+              - -ec
+              - 'wget --no-verbose --tries=1 --spider http://127.0.0.1:8081/ping || exit 1'
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 6
         ports:
         - containerPort: 8081

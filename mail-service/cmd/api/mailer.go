@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/vanng822/go-premailer/premailer"
-	mail "github.com/xhit/go-simple-mail"
 	mail "github.com/xhit/go-simple-mail/v2"
 )
 
@@ -72,12 +71,12 @@ func (m *Mail) SendSMTPMessage(msg Message) error {
 	}
 
 	email := mail.NewMSG()
+
 	email.SetFrom(msg.From).
 		AddTo(msg.To).
 		SetSubject(msg.Subject).
-		email.SetBody(mail.TextPlain, plainMessage)
-
-	email.AddAlternative(mail.TextHTML, formattedMessage)
+		SetBody(mail.TextPlain, plainMessage).
+		AddAlternative(mail.TextHTML, formattedMessage)
 
 	if len(msg.Attachments) > 0 {
 		for _, attachment := range msg.Attachments {

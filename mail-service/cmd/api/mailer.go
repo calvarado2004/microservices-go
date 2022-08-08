@@ -94,7 +94,7 @@ func (m *Mail) SendSMTPMessage(msg Message) error {
 }
 
 func (m *Mail) buildHTMLMessage(msg Message) (string, error) {
-	templateToRender := "./templates/email.html"
+	templateToRender := "./templates/mail.html"
 
 	t, err := template.New("email-html").ParseFiles(templateToRender)
 	if err != nil {
@@ -119,7 +119,7 @@ func (m *Mail) buildHTMLMessage(msg Message) (string, error) {
 }
 
 func (m *Mail) buildPlainTextMessage(msg Message) (string, error) {
-	templateToRender := "./templates/email.plain.html"
+	templateToRender := "./templates/mail.plain.html"
 
 	t, err := template.New("email-plain").ParseFiles(templateToRender)
 	if err != nil {

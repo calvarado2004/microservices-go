@@ -39,6 +39,17 @@ services:
       MONGO_USER: mongo
       MONGO_PASSWORD: mongo
 
+  mailer-service:
+    build:
+      context: ./../mailer-service
+      dockerfile: ./../mail-service/mailer-service.dockerfile
+    restart: always
+    ports:
+      - "8084:8084"
+    deploy:
+      mode: replicated
+      replicas: 1
+
   authentication-service:
     build:
       context: ./../authentication-service

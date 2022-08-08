@@ -8,10 +8,10 @@ import (
 )
 
 type RequestPayload struct {
-	Action      string      `json:"action"`
-	Auth        AuthPayload `json:"auth,omitempty"`
-	Log         LogPayload  `json:"log,omitempty"`
-	MailPayload MailPayload `json:"mail,omitempty"`
+	Action string      `json:"action"`
+	Auth   AuthPayload `json:"auth,omitempty"`
+	Log    LogPayload  `json:"log,omitempty"`
+	Mail   MailPayload `json:"mail,omitempty"`
 }
 
 type AuthPayload struct {
@@ -58,7 +58,7 @@ func (app *Config) HandleSubmission(w http.ResponseWriter, r *http.Request) {
 	case "log":
 		app.logItem(w, requestPayload.Log)
 	case "mail":
-		app.sendMail(w, requestPayload.MailPayload)
+		app.sendMail(w, requestPayload.Mail)
 	default:
 		app.errorJSON(w, errors.New("invalid action"))
 	}
@@ -156,7 +156,7 @@ func (app *Config) sendMail(w http.ResponseWriter, msg MailPayload) {
 	jsonData, _ := json.MarshalIndent(msg, "", "\t")
 
 	//call mail service
-	mailServiceURL := "http://mail-service:8084/send"
+	mailServiceURL := "http://mailer-service:8084/send"
 
 	// post to mail service
 	request, err := http.NewRequest("POST", mailServiceURL, bytes.NewBuffer(jsonData))
@@ -186,7 +186,7 @@ func (app *Config) sendMail(w http.ResponseWriter, msg MailPayload) {
 	// send back a response
 	var payload jsonResponse
 	payload.Error = false
-	payload.Message = "Email sent to " + msg.To
+	payload.Message = "Email sent successfully to " + msg.To
 
 	app.writeJSON(w, http.StatusAccepted, payload)
 

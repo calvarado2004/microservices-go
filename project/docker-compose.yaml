@@ -41,7 +41,7 @@ services:
 
   mailer-service:
     build:
-      context: ./../mailer-service
+      context: ./../mail-service
       dockerfile: ./../mail-service/mailer-service.dockerfile
     restart: always
     ports:

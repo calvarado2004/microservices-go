@@ -20,8 +20,6 @@ FROM alpine:latest
 
 WORKDIR /app
 
-RUN mkdir /app
-
 COPY ./templates /app/templates
 
 COPY --from=builder /app/mailerApp /app

@@ -101,7 +101,7 @@ func (m *Mail) buildHTMLMessage(msg Message) (string, error) {
 	}
 
 	var tpl bytes.Buffer
-	err = t.Execute(&tpl, "body", msg.DataMap)
+	err = t.ExecuteTemplate(&tpl, "body", msg.DataMap)
 	if err != nil {
 		return "", err
 	}
@@ -126,7 +126,7 @@ func (m *Mail) buildPlainTextMessage(msg Message) (string, error) {
 	}
 
 	var tpl bytes.Buffer
-	err = t.Execute(&tpl, "body", msg.DataMap)
+	err = t.ExecuteTemplate(&tpl, "body", msg.DataMap)
 	if err != nil {
 		return "", err
 	}

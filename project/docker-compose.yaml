@@ -106,6 +106,7 @@ services:
 
   mailhog:
     image: 'mailhog/mailhog:latest'
+    restart: always
     ports: 
       - "1025:1025"
       - "8025:8025"
@@ -115,6 +116,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:3.9-alpine
+    restart: always
     ports:
       - "5672:5672"
     deploy:

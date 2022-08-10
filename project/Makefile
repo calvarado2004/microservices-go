@@ -48,7 +48,7 @@ build_mailer:
 ## build_listener: builds the listener binary as a linux executable
 build_listener:
 	@echo "Building listener binary..."
-	cd ../listener-service && env GOOS=linux CGO_ENABLED=0 go build -o ${LISTENER_BINAY} ./cmd/api
+	cd ../listener-service && env GOOS=linux CGO_ENABLED=0 go build -o ${LISTENER_BINAY} .
 	@echo "Done!"
 
 ## build_auth: builds the auth binary as a linux executable

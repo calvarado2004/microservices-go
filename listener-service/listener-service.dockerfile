@@ -11,7 +11,7 @@ RUN go mod init calvarado2004/microservices-go/listener-service
 
 RUN go get github.com/rabbitmq/amqp091-go
 
-RUN CGO_ENABLED=0 go build -o listenerApp ./event/
+RUN CGO_ENABLED=0 go build -o listenerApp .
 
 RUN chmod +x /app/listenerApp
 

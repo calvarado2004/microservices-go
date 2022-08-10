@@ -1,6 +1,7 @@
 package main
 
 import (
+	"calvarado2004/microservices-go/listener-service/event"
 	"fmt"
 	"log"
 	"math"
@@ -18,14 +19,23 @@ func main() {
 		os.Exit(1)
 	}
 	defer rabbitConn.Close()
-	log.Println("Connected to RabbitMQ")
 
 	// start listening for messages
+	log.Println("Listening and consuming RabbitMQ messages")
 
 	// create a consumer
+	consumer, err := event.NewConsumer(rabbitConn)
+
+	if err != nil {
+		log.Println(err)
+		os.Exit(1)
+	}
 
 	// watch for messages on queue and consume events
-
+	err = consumer.Listen([]string{"log.INFO", "log.WARNING", "log.ERROR", "log.CRITICAL"})
+	if err != nil {
+		log.Println(err)
+	}
 }
 
 func connect() (*amqp.Connection, error) {
@@ -42,6 +52,7 @@ func connect() (*amqp.Connection, error) {
 			fmt.Println("RabbitMQ is not up yet.")
 			counts++
 		} else {
+			log.Println("Connected to RabbitMQ")
 			connection = c
 			break
 		}

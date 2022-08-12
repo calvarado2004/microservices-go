@@ -4,9 +4,11 @@ RUN mkdir /app
 
 COPY ./cmd /app/cmd
 
+COPY ./event /app/event
+
 WORKDIR /app
 
-RUN go mod init calvarado2004/microservices-go/broker-service && go get github.com/go-chi/chi/v5 && go get github.com/go-chi/cors
+RUN go mod init calvarado2004/microservices-go/broker-service && go get github.com/go-chi/chi/v5 && go get github.com/go-chi/cors && go get github.com/rabbitmq/amqp091-go
 
 RUN CGO_ENABLED=0 go build -o brokerApp ./cmd/api
 

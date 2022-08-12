@@ -57,7 +57,11 @@ func (app *Config) HandleSubmission(w http.ResponseWriter, r *http.Request) {
 	switch requestPayload.Action {
 	case "auth":
 		app.authenticate(w, requestPayload.Auth)
-	case "log":
+	case "log-json":
+		app.logItem(w, requestPayload.Log)
+	case "log-rabbit":
+		app.logEventViaRabbit(w, requestPayload.Log)
+	case "log-rpc":
 		app.logItemViaRPC(w, requestPayload.Log)
 	case "mail":
 		app.sendMail(w, requestPayload.Mail)

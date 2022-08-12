@@ -43,7 +43,7 @@ func (e *Emitter) Push(event string, severity string) error {
 	return nil
 }
 
-func NewEventEmitter(conn *ampq.Connection) (Emitter, error) {
+func NewEventEmitter(conn *amqp.Connection) (Emitter, error) {
 	emitter := Emitter{
 		connection: conn,
 	}

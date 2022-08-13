@@ -42,7 +42,7 @@ func (l *LogServer) WriteLog(ctx context.Context, req *logs.LogRequest) (*logs.L
 func (app *Config) gRPCListen() {
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", gRpcPort))
 	if err != nil {
-		log.Fatalf("failed to listen with gRPX: %v", err)
+		log.Fatalf("failed to listen with gRPC: %v", err)
 	}
 
 	s := grpc.NewServer()

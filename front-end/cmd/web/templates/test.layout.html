@@ -12,6 +12,7 @@
                 <a id="logBtn" class="btn btn-outline-primary" href="javascript:void(0);">Test JSON Logger</a>
                 <a id="rabbitBtn" class="btn btn-outline-primary" href="javascript:void(0);">Test RabbitMQ Logger</a>
                 <a id="rpcBtn" class="btn btn-outline-primary" href="javascript:void(0);">Test RPC Logger</a>
+                <a id="grpcBtn" class="btn btn-outline-primary" href="javascript:void(0);">Test gRPC Logger</a>
                 <a id="mailBtn" class="btn btn-outline-primary" href="javascript:void(0);">Test Mailer</a>
 
                 <div id="output" class="mt-5" style="outline: 1px solid silver; padding: 2em;">
@@ -44,6 +45,7 @@
         let logBtn = document.getElementById('logBtn');
         let rabbitBtn = document.getElementById('rabbitBtn');
         let rpcBtn = document.getElementById('rpcBtn');
+        let grpcBtn = document.getElementById('grpcBtn');
         let output = document.getElementById('output');
         let sent = document.getElementById('payload');
         let received = document.getElementById('received');
@@ -157,6 +159,41 @@
             });
         });
 
+        grpcBtn.addEventListener('click', function() {
+            const payload = {
+                action: "log-rpc",
+                log: {
+                    name: "event",
+                    data: "Sending logging data through gRPC",
+                }
+            };
+
+            const headers = new Headers();
+
+            headers.append('Content-Type', 'application/json');
+
+            const body = {
+                method: "POST",
+                headers: headers,
+                body: JSON.stringify(payload)
+            };
+
+            fetch("http://localhost:8081/log-grpc", body)
+            .then((response) => response.json())
+            .then((data) => {
+                sent.innerHTML = JSON.stringify(payload, undefined, 4);
+                received.innerHTML = JSON.stringify(data, undefined, 4);
+                console.log(data.message);
+                if (data.error) {
+                    output.innerHTML += `<br><strong>Error:</strong> ${data.message}`;
+                } else {
+                    output.innerHTML += `<br><strong> Response from broker service </strong>: ${data.message}`;
+                }
+            })
+            .catch((error) => {
+                output.innerHTML += "<br><br> Error from broker service:" + error;
+            });
+        });
 
         authBrokerBtn.addEventListener('click', function() {
 

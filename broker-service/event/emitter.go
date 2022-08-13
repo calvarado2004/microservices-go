@@ -24,7 +24,6 @@ func (e *Emitter) Push(event string, severity string) error {
 	if err != nil {
 		return err
 	}
-	defer channel.Close()
 	log.Println("Pushing event to rabbitmq channel")
 
 	err = channel.Publish(
@@ -40,6 +39,7 @@ func (e *Emitter) Push(event string, severity string) error {
 	if err != nil {
 		return err
 	}
+	defer channel.Close()
 	return nil
 }
 

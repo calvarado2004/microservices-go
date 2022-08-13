@@ -97,7 +97,7 @@ func (consumer *Consumer) Listen(topics []string) error {
 
 func handlePayload(payload Payload) {
 	switch payload.Name {
-	case "log", "event":
+	case "log-rabbit", "event":
 		err := logEvent(payload)
 		if err != nil {
 			log.Printf("Error logging event: %s", err)

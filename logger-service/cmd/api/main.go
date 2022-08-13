@@ -58,7 +58,11 @@ func main() {
 	//register the RPC Server
 	err = rpc.Register(new(RPCServer))
 
+	// listen for RPC requests
 	go app.rpcListen()
+
+	// listen gRPC server
+	go app.gRPCListen()
 
 	// start the server
 

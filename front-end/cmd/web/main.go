@@ -9,7 +9,12 @@ import (
 )
 
 func main() {
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		render(w, "test.layout.html")
+	})
+
+	http.HandleFunc("/microservices", func(w http.ResponseWriter, r *http.Request) {
 		render(w, "test.layout.html")
 	})
 

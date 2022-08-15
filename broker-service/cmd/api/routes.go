@@ -22,11 +22,11 @@ func (app *Config) routes() http.Handler {
 
 	mux.Use(middleware.Heartbeat("/ping"))
 
-	mux.Post("/microservices-broker", app.Broker)
+	mux.Post("/microservices/broker", app.Broker)
 
-	mux.Post("/microservices-broker/handle", app.HandleSubmission)
+	mux.Post("/microservices/broker/handle", app.HandleSubmission)
 
-	mux.Post("/microservices-broker/log-grpc", app.LogViaGRPC)
+	mux.Post("/microservices/broker/log-grpc", app.LogViaGRPC)
 
 	return mux
 

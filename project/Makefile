@@ -19,7 +19,8 @@ up_build:
 	@echo "Building (when required) and starting docker images..."
 	docker-compose up --build -d
 	@echo "Docker images built and started!"
-	push_images
+
+up_build_push: up_build push_images
 
 ## down: stop docker compose
 down:

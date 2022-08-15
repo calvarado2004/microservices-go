@@ -62,6 +62,6 @@ spec:
         env:
         - name: "BROKER_URL"
           #value: "http://localhost:8081"
-          value: "https://k8s-asus.calvarado04.com"
+          value: "http://kubernetes.lehi-k8s-strawberry.calvarado04.com"
         ports:
         - containerPort: 80

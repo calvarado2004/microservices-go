@@ -19,7 +19,8 @@ const webPort = "8082"
 var counts int64
 
 type Config struct {
-	Repo data.Repository
+	Repo   data.Repository
+	Client *http.Client
 }
 
 func main() {
@@ -30,7 +31,9 @@ func main() {
 		log.Panic("Could not connect to database")
 	}
 
-	app := Config{}
+	app := Config{
+		Client: &http.Client{},
+	}
 
 	srv := &http.Server{
 

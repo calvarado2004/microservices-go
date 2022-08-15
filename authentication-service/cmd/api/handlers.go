@@ -70,8 +70,7 @@ func (app *Config) logRequest(name, data string) error {
 		return err
 	}
 
-	client := &http.Client{}
-	resp, err := client.Do(request)
+	resp, err := app.Client.Do(request)
 	if err != nil {
 		return err
 	}

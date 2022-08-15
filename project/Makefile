@@ -13,12 +13,13 @@ up:
 	@echo "Docker images started!"
 
 ## up_build: stops docker-compose (if running), builds all projects and starts docker compose
-up_build: build_broker build_auth build_logger build_mailer build_listener build_front
+up_build:
 	@echo "Stopping docker images (if running...)"
 	docker-compose down
 	@echo "Building (when required) and starting docker images..."
 	docker-compose up --build -d
 	@echo "Docker images built and started!"
+	push_images
 
 ## down: stop docker compose
 down:
@@ -61,6 +62,28 @@ build_auth:
 build_front:
 	@echo "Building front end binary..."
 	cd ../front-end && env CGO_ENABLED=0 go build -o ${FRONT_END_BINARY} ./cmd/web
+	@echo "Done!"
+
+## push_images: pushes all images to the docker hub
+push_images:
+	@echo "Pushing images to docker hub..."
+	docker tag project_frontend-service calvarado2004/microservices-go-frontend:latest
+	docker push calvarado2004/microservices-go-frontend
+
+	docker tag project_broker-service calvarado2004/microservices-go-broker:latest
+	docker push calvarado2004/microservices-go-broker
+
+	docker tag project_listener-service calvarado2004/microservices-go-listener:latest
+	docker push calvarado2004/microservices-go-listener
+
+	docker tag project_logger-service calvarado2004/microservices-go-logging:latest
+	docker push calvarado2004/microservices-go-logging
+
+	docker tag project_authentication-service calvarado2004/microservices-go-authentication:latest
+	docker push calvarado2004/microservices-go-authentication
+
+	docker tag project_mailer-service calvarado2004/microservices-go-mailer:latest
+	docker push calvarado2004/microservices-go-mailer
 	@echo "Done!"
 
 ## start: starts the front end

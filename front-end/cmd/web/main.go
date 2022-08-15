@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
@@ -20,6 +21,8 @@ func main() {
 }
 
 func render(w http.ResponseWriter, t string) {
+
+	brokerURL := os.Getenv("BROKER_URL")
 
 	partials := []string{
 		"./cmd/web/templates/base.layout.html",
@@ -40,7 +43,7 @@ func render(w http.ResponseWriter, t string) {
 		return
 	}
 
-	if err := tmpl.Execute(w, nil); err != nil {
+	if err := tmpl.Execute(w, brokerURL); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }

@@ -59,5 +59,8 @@ spec:
           timeoutSeconds: 5
           successThreshold: 1
           failureThreshold: 6
+        env:
+        - name: "BROKER_URL"
+          value: localhost
         ports:
         - containerPort: 80

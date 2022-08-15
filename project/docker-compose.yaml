@@ -13,7 +13,7 @@ services:
       mode: replicated
       replicas: 1
     environment:
-      BROKER_URL: localhost
+      BROKER_URL: "http://localhost:8081"
 
 
   broker-service:

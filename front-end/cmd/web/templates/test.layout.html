@@ -52,9 +52,9 @@
         let received = document.getElementById('received');
         let mailBtn = document.getElementById('mailBtn');
 
-        const urlHandle = "http://" + brokerURL + ":8081/microservices/broker/handle"
-        const urlRoot = "http://" + brokerURL + ":8081/microservices/broker"
-        const urlgRPC = "http://" + brokerURL + ":8081/microservices/broker/log-grpc"
+        const urlHandle = brokerURL + "/microservices/broker/handle"
+        const urlRoot = brokerURL + "/microservices/broker"
+        const urlgRPC = brokerURL + "/microservices/broker/log-grpc"
 
 
         logBtn.addEventListener('click', function() {

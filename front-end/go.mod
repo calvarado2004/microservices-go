@@ -1,3 +1,3 @@
 module calvarado2004/microservices-go/front-end
 
-go 1.18
+go 1.19

@@ -1,4 +1,4 @@
-FROM docker.io/golang:1.18.4-alpine as builder
+FROM docker.io/golang:1.19-alpine as builder
 
 RUN mkdir /app
 COPY ./cmd /app/cmd

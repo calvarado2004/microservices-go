@@ -31,7 +31,7 @@ spec:
       terminationGracePeriodSeconds: 20
       containers:
       - name: postgres
-        image: postgres:14.0
+        image: postgres:14.5
         env:
         - name: POSTGRES_USER
           value: "postgres"
@@ -41,6 +41,9 @@ spec:
           value: "users"
         - name: POSTGRES_HOST_AUTH_METHOD
           value: "trust"
+        securityContext:
+          privileged: true
+          allowPrivilegeEscalation: true
         resources:
           requests:
             cpu: 10m

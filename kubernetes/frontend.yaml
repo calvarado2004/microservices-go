@@ -7,7 +7,7 @@ metadata:
 spec:
   ports:
   - port: 8080
-    targetPort: 80
+    targetPort: 8080
   selector:
     app: frontend
 ---
@@ -68,4 +68,4 @@ spec:
           #value: "http://localhost:8081"
           value: "http://kubernetes.lehi-k8s-strawberry.calvarado04.com:80"
         ports:
-        - containerPort: 80
+        - containerPort: 8080

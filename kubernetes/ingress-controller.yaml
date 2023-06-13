@@ -4,8 +4,12 @@ metadata:
   name: microservices-ingress
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - kubernetes.lehi-k8s-chocolate.calvarado04.com
+    secretName: chocolate-tls
   rules:
-    - host: kubernetes.lehi-k8s-strawberry.calvarado04.com
+    - host: kubernetes.lehi-k8s-chocolate.calvarado04.com
       http:
         paths:
           - path: /microservices
